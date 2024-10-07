@@ -34,7 +34,7 @@ def get_posts():
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: schemas.Post):
+def create_posts(post: schemas.PostCreate):
     cursor.execute(
         """INSERT INTO posts (title, content, published)
            VALUES (%s, %s, %s) RETURNING *""",
@@ -69,7 +69,7 @@ def delete_post(id: int):
 
 
 @app.put("/posts/{id}")
-def update_post(id: int, post: schemas.Post):
+def update_post(id: int, post: schemas.PostCreate):
     cursor.execute(
         """UPDATE posts SET title = %s, content = %s, published = %s
            WHERE id = %s RETURNING *""",
